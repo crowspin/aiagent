@@ -44,3 +44,11 @@ A quick breakdown of the project so far:
     set up the ai, and so far, just fire off a test prompt to a free-tier model. At first  
     the prompt was hardcoded, but now it comes from the first argument from the command line.  
 ```
+
+## C1-L6
+Just because I'm really proud of how quickly I've been able to move through the curriculum so far, I want to say 'out loud' that I'm going to be slowing down intentionally for the next week or so. As wicked cool as it would be to finish the whole jam in a single month instead of twelve, I don't really think the difficulty is going to stay low enough for me to support that pace. Even if Course 7 was a lot of (10/10) difficulty lessons. I've got a camping trip coming on the weekend after next, and I've worked with C++ enough to know I won't be able to take that course without a proper computer to compile my work. I guess the class might have a live-compiler, or just do text parsing, but I doubt it. So I'm going to finish this chapter for the morning, and save Course 9 for while I'm away and on my tablet. 
+```
+    Not really much in this lesson worth noting like this, just an argument flag capture
+    Just felt obligated to have something related to the lesson itself under it's header
+    hahaha
+```

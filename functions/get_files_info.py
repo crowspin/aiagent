@@ -22,6 +22,6 @@ def get_files_info(working_directory, directory=None):
             abso = os.path.join(operating_directory, obj)
             file_list += f"- {obj}: file_size={os.path.getsize(abso)} bytes, is_dir={os.path.isdir(abso)}\n"
         except OSError:
-            pass
+            return f"Error: An error occurred while listing files in '{directory}'"
     
     return file_list

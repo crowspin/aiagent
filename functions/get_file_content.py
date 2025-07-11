@@ -11,10 +11,17 @@ def get_file_content(working_directory, file_path):
     if not os.path.isfile(selected_file):
         return f'Error: File not found or is not a regular file: "{file_path}"\n'
     
-    with open(selected_file, "r") as f:
-        file_content_string = f.read(MAX_CHARS)
-        if len(file_content_string) >= MAX_CHARS:
-            file_content_string += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
-    return file_content_string
-
-#Catch errors
+    try:
+        with open(selected_file, "r") as f:
+            file_content_string = f.read(MAX_CHARS)
+            if len(file_content_string) >= MAX_CHARS:
+                file_content_string += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
+        return file_content_string + "\n\n"
+    except FileNotFoundError:
+        return f"Error: File not found: '{file_path}'"
+    except PermissionError:
+        return f"Error: Insufficient privileges: '{file_path}'"
+    except ValueError:
+        return f"Error: Invalid data format: '{file_path}'"
+    except OSError:
+        return f"Error: An error occurred while opening the file: '{file_path}'"

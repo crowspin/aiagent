@@ -68,3 +68,13 @@ Just because I'm really proud of how quickly I've been able to move through the 
     OSError in one, and done nothing in the other and I'm just gonna pray I guess. Might be  
     something with file permissions later, but unclear at this time.
 ```
+
+## C2-L4
+Yeah, so, it was bugging me about the whole "I'm supposed to catch errors and I can't figure out which ones (Lane?) means" thing. So I asked Boots. :deep_shame:  
+In get_files_list I already had a try block over the potentially bad block, but I hadn't returned an error message, which was no bueno. And in get_files_info I had identified that open() was the likely offender, but I had done some googling and found what might have been outdated info that suggested that try..except and with.. blocks were incompatible. StackOverflow has failed me.
+Anyhow, the error catches for those functions are now in place.
+```
+    New test package
+    backup of lorem.txt because it's been overwritten
+    write_file added
+```

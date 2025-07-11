@@ -52,3 +52,19 @@ Just because I'm really proud of how quickly I've been able to move through the 
     Just felt obligated to have something related to the lesson itself under it's header
     hahaha
 ```
+
+## C2-L3
+```
+    Had to add __pycache__ to .gitignore
+        Not sure where those files are coming from yet, but they're auto generated, so
+        probably not git-worthy
+    config.py just has a max character read-length constant for get_file_contents
+    \tests.py has some test cases for \functions
+    lorem.txt is stock text
+    contents of \calculator not generated/written by me
+
+    get_files_info and get_file_content both have an instruction in their lessons to catch  
+    ~other~ errors they aren't naming and I can't find in the docs so I've caught a possible  
+    OSError in one, and done nothing in the other and I'm just gonna pray I guess. Might be  
+    something with file permissions later, but unclear at this time.
+```

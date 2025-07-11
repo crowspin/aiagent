@@ -1,6 +1,6 @@
 import os, subprocess
-
 from subprocess import TimeoutExpired, CalledProcessError, SubprocessError
+from google.genai import types
 
 def run_python_file(working_directory, file_path):
     
@@ -37,3 +37,17 @@ def run_python_file(working_directory, file_path):
             feedback += f"STDERR:\n{resp.stderr}\n\n"
 
     return feedback
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Runs a python script from within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the python script file ending in '.py'. Should be relative to the working directory.",
+            ),
+        },
+    ),
+)

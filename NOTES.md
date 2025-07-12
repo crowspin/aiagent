@@ -81,3 +81,6 @@ Anyhow, the error catches for those functions are now in place.
 
 ## C3-L4-a
 I need to fire this off quickly before I head for work, but I can't submit the answer to the lesson at this time. The work for *this* lesson is fine, but it seems I'm getting the wrong output from run_python_file along STDOUT. Maybe I've not captured it correctly, I'm sure it'll be a one line fix, but I gotta run. Can't be late for the thing that pays my bills.
+
+## C3-L4-b
+I realized a few seconds after I posted that last commit that I'd copy-pasted my subprocess.run usage from the docs, and forgotten to actually pass it the python file. So after telling it to use python and run the file, now it works fine. One line, as predicted. :facepalm:

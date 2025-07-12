@@ -15,7 +15,7 @@ def run_python_file(working_directory, file_path):
         return f'Error: "{file_path}" is not a Python file.\n'
     
     try:
-        resp = subprocess.run(["ls", "-l", "/dev/null"], capture_output=True, cwd=os.path.dirname(selected_file), timeout=30)
+        resp = subprocess.run(["python", selected_file], capture_output=True, cwd=os.path.dirname(selected_file), timeout=30)
     except TimeoutExpired:
         return f"Error: Python file '{file_path}' took longer than 30 seconds to execute. Terminated.\n"
     except CalledProcessError:

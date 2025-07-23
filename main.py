@@ -30,9 +30,9 @@ def main():
     )
 
     system_prompt = """
-                    You are a helpful AI coding agent.
+                    You are a helpful AI coding agent, working on a calculator app writen in python.
 
-                    When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
+                    When a user asks a question or makes a request, consider the available functions, and execute them to obtain the necessary information to generate a response. You can perform the following operations:
 
                     - List files and directories
                     - Read file contents
@@ -40,6 +40,8 @@ def main():
                     - Write or overwrite files
 
                     All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+
+                    You should not respond with text until you have come to a conclusion. Execute all needed functions before responding with text.
                     """
 
     user_prompt = sys.argv[1]
@@ -47,25 +49,37 @@ def main():
     messages = [
         types.Content(role="user", parts=[types.Part(text=user_prompt)])
     ]
-    ret = client.models.generate_content(
-        model="gemini-2.0-flash-001",
-        contents=messages,
-        config=types.GenerateContentConfig(
-            tools=[available_functions],
-            system_instruction=system_prompt
-        ),
-    )
-    for function_call_part in ret.function_calls:
-        resp = call_function(function_call_part, applet_verbose)
-        if not resp.parts[0].function_response.response:
-            raise Exception ("fatal exception of some sort")
-        elif applet_verbose:
-            print(f"-> {resp.parts[0].function_response.response}")
-    if ret.text != None:
-        print (ret.text)
-    if applet_verbose:
-        print(f"Prompt tokens: {ret.usage_metadata.prompt_token_count}")
-        print(f"Response tokens: {ret.usage_metadata.candidates_token_count}")
+
+    loop_count = 0
+    max_loop_count = 20
+    while(loop_count < max_loop_count):
+        ret = client.models.generate_content(
+            model="gemini-2.0-flash-001",
+            contents=messages,
+            config=types.GenerateContentConfig(
+                tools=[available_functions],
+                system_instruction=system_prompt
+            ),
+        )
+
+        for candidate in ret.candidates:
+            messages.append(candidate.content)
+
+        if ret.function_calls != None:
+            for function_call_part in ret.function_calls:
+                resp = call_function(function_call_part, applet_verbose)
+                if not resp.parts[0].function_response.response:
+                    raise Exception ("fatal exception of some sort")
+                elif applet_verbose:
+                    print(f"-> {resp.parts[0].function_response.response}")
+                messages.append(resp)
+        elif ret.text != None:
+            print(ret.text)
+            if applet_verbose:
+                print(f"Prompt tokens: {ret.usage_metadata.prompt_token_count}")
+                print(f"Response tokens: {ret.usage_metadata.candidates_token_count}")
+            break
+
 
 def call_function(function_call_part, verbose=False):
 
